@@ -7,6 +7,15 @@ CATEGORY_CHOICES = (("CREAMIC", "CREAMIC"), ("GLASS", "GLASS"),
                     ("STAINLESS", "STAINLESS"), ("MELAMINE ", "MELAMINE"), ("CHINA ", "CHINA"))
 
 
+class Factory(models.Model):
+    name = models.CharField(max_length=200)
+    address = models.CharField(max_length=200)
+    description = models.TextField()
+
+    def __str__(self):
+        return self.name
+
+
 class Mug(models.Model):
     name = models.CharField(max_length=200, blank=False, null=False)
     category = models.CharField(choices=CATEGORY_CHOICES, max_length=100)
@@ -15,6 +24,7 @@ class Mug(models.Model):
     created_date = models.DateTimeField(auto_now_add=True)
     price = models.IntegerField(default=100)
     image = models.ImageField(upload_to='images', null=True, blank=True)
+    factory = models.ForeignKey(Factory, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name

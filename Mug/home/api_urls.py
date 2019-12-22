@@ -2,15 +2,20 @@ from django.urls import path, include
 from django.conf.urls import include
 from rest_framework import routers
 from .views import (
-     MugDetail, MugList, MugStaff
+    MugDetail, MugList, MugStaff, MugViewSet, FactoryViewSet
 )
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
 )
+router = routers.DefaultRouter()
+router.register('mugs', MugViewSet)
+router.register('factorys', FactoryViewSet)
+
 
 app_name = 'home'
 urlpatterns = [
+    path('', include(router.urls)),
     path('mug/', MugList.as_view()),
     #path('mug/<category>/', MugSearch.as_view()),
     #path('mug/search/', MugSearch.as_view()),

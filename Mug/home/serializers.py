@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from .models import Mug
+from .models import Mug, Factory
 
 
 class MugSerializer(serializers.ModelSerializer):
@@ -19,3 +19,9 @@ class MugStaffSerializer(serializers.ModelSerializer):
                         'created_by': {'read_only': True},
                         'created_date': {'read_only': True}}
         #read_only_fields = ['id', 'name', 'created_by', 'created_date']
+
+
+class FactorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Factory
+        fields = ['id', 'name', 'address', 'description']
